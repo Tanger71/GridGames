@@ -1,0 +1,36 @@
+January 11 2018
+Sawyer Tang and Naod Dereje
+
+# Project requirments
+
+## Requirements
+
+- You must create a library that can play 1 of 2 games based on user input
+- The game(s) must display a game board whenever appropriate
+- both of your games must utilize a grid
+- You must have atleast 1:
+ - Concrete class (excluding main class)
+ - abstract class OR  interface
+ - object
+ - downcast
+ - override (if you meet one of the above this will be automatic :P)
+ - overload
+- All above requirements need to be met and USED appropriately
+- You must use GIt to keep your code updated and backed up
+any member may make these commits
+ - you should push after every commit but can push at the very end if you want as long as the commits are there
+ - use 2 different branches to avoid conflicts
+
+## Grading
+
+- formatting and conventions (naming conventions, constructors when they are needed by best practices, @override annotations)
+- Correctness of implementation (did you use an interface correctly, does it make sense for that entity to be an interface over an abstract class)
+- Functionality (does it and how well does it work)
+- differential grading based on git commit and conribution
+ - each "feature" or functionality you add should be a commit (i.e. adding a button and related click handler for player turn for a given game)
+ - its not just about quantity of code commits and LOC but also about the purpose and contribution value to project
+- Met all requirements listed above
+
+## Bonus
+
+- If you can create an appropriate GUI for your games you will earn a bonus mark for each GUI
