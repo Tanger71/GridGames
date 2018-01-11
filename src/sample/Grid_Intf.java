@@ -1,6 +1,9 @@
 package sample;
 
+import javafx.scene.layout.Pane;
+
 public interface Grid_Intf {
-    void draw(int l, int h);
-    void fill(Object[][] f);
+    //TODO: add more as we go that are common
+    void draw();
+    Pane getPane();
 }

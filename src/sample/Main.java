@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -14,6 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import sample.snakesAndLadders.SnakesAndLadders;
+import sample.ticTacToe.TicTacToe;
 
 public class Main extends Application {
 
@@ -26,7 +27,7 @@ public class Main extends Application {
     }
 
     public static StackPane drawMenu(){
-        StackPane rtn = new StackPane(new Rectangle(500, 500, Color.LIGHTGRAY));
+        StackPane rt = new StackPane(new Rectangle(400, 200, Color.LIGHTGRAY));
         VBox pn_menuComp = new VBox();
         StackPane.setAlignment(pn_menuComp, Pos.CENTER_LEFT);
         Label lbl_title = new Label("Grid Games");
@@ -46,8 +47,8 @@ public class Main extends Application {
         });
 
         pn_menuComp.getChildren().addAll(lbl_title, btn_tic, btn_snakes);
-        rtn.getChildren().addAll(pn_menuComp);
-        return rtn;
+        rt.getChildren().addAll(pn_menuComp);
+        return rt;
     }
 
 
