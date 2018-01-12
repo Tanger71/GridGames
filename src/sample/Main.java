@@ -18,6 +18,8 @@ import sample.ticTacToe.TicTacToe;
 
 public class Main extends Application {
 
+    public TicTacToe ticTacToe;
+
     @Override
     //start() method: implements stg_main with scn_menu
     public void start(Stage stg_main) throws Exception{
@@ -28,7 +30,7 @@ public class Main extends Application {
     }
 
     //drawMenu() method: draws GUI for main menu
-    public static StackPane drawMenu(){
+    public StackPane drawMenu(){
         StackPane rt = new StackPane(new Rectangle(400, 200, Color.LIGHTGRAY));
         VBox pn_menuComp = new VBox();
         StackPane.setAlignment(pn_menuComp, Pos.CENTER_LEFT);
@@ -37,10 +39,12 @@ public class Main extends Application {
         pn_menuComp.setAlignment(Pos.CENTER);
         pn_menuComp.setSpacing(10);
 
+
+
         Button btn_tic = new Button("Play TicTacToe");
         btn_tic.setOnAction(value ->  {
             System.out.println("Creating ticTacToe...");
-            TicTacToe ticTacToe = new TicTacToe();
+            ticTacToe = new TicTacToe();
         });
         Button btn_snakes = new Button("Play Snakes and Ladders");
         btn_snakes.setOnAction(value ->  {

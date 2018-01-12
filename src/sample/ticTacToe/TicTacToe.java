@@ -18,7 +18,10 @@ public class TicTacToe {
     public Scene scn_game;
 
     public int GAMEWIDTH = 500;
-    public int GAMEHEIGHT = 500;
+    public int GAMEHEIGHT = 580;
+
+    public Field grid;
+    public static Label lbl_message;
 
     //TicTacToe() Constructor: inits, implement stg_ttt Stage with scn_menu
     public TicTacToe(){
@@ -53,38 +56,48 @@ public class TicTacToe {
 
     //drawGame() method: draws GUI for ttt game
     public void drawGame(){
-        Field grid = new Field(3, 3);
+        grid = new Field(3, 3);
         grid.draw();
 
+        //CenterPane
         Label lbl_title = new Label("Tic Tac Toe");
         lbl_title.setFont(Font.font ("Verdana", FontWeight.BOLD, 50));
         lbl_title.setTranslateY(-200);
         Pane pn_grid = grid.getPane();
         pn_grid.setTranslateY(40);
-        StackPane pn_gameGrid = new StackPane(new Rectangle(GAMEWIDTH, GAMEHEIGHT, Color.LIGHTGRAY), pn_grid, lbl_title);
+        StackPane pn_gameGrid = new StackPane(new Rectangle(GAMEWIDTH, GAMEHEIGHT - 80, Color.LIGHTGRAY), pn_grid, lbl_title);
 
+        //TopPane
         //btn_quit : quits application
         Button btn_quit = new Button("Quit");
         btn_quit.setOnAction(value ->  {
             System.out.println("Quitting...");
             System.exit(0);
         });
-        //btn_menu : changes scene to this.scn_menu
-        Button btn_menu = new Button("Menu");
-        btn_menu.setOnAction(value ->  {
-            System.out.println("to menu...");
+        //btn_close : changes scene to this.scn_close
+        Button btn_close = new Button("Close Game");
+        btn_close.setOnAction(value ->  {
+            System.out.println("Closing game...");
+            stg_ttt.close();
         });
-        HBox pn_toolbarLayout = new HBox(btn_quit, btn_menu);
+        HBox pn_toolbarLayout = new HBox(btn_quit, btn_close);
         pn_toolbarLayout.setPadding(new Insets(5, 5, 5, 5));
         pn_toolbarLayout.setSpacing(5);
-        Rectangle rec_toolBarBG = new Rectangle(GAMEWIDTH, 40, Color.WHITE);
+        Rectangle rec_toolBarBG = new Rectangle(GAMEWIDTH, 40, Color.GRAY);
         Pane pn_toolbar = new Pane();
         pn_toolbar.getChildren().addAll(rec_toolBarBG, pn_toolbarLayout);
 
-        Rectangle rec_textBarBG = new Rectangle(GAMEWIDTH, 50, Color.WHITE);
+        //BottomPane
+        lbl_message = new Label();
+        updateMessage();
+        lbl_message.setFont(Font.font ("Verdana", FontWeight.BOLD, 20));
+        lbl_message.setTranslateY(8);
+        lbl_message.setTranslateX(10);
+        Rectangle rec_textBarBG = new Rectangle(GAMEWIDTH, 40, Color.WHITE);
         Pane pn_textBar = new Pane();
-        pn_textBar.getChildren().addAll(rec_textBarBG);
+        pn_textBar.getChildren().addAll(rec_textBarBG, lbl_message);
 
+        //BorderPane comp
         BorderPane pn_layout = new BorderPane();
         pn_layout.setCenter(pn_gameGrid);
         pn_layout.setTop(pn_toolbar);
@@ -96,6 +109,10 @@ public class TicTacToe {
 
         stg_ttt.setScene(scn_game);
         stg_ttt.show();
+    }
+
+    public static void updateMessage(){
+        lbl_message.setText(Field.outputMessage);
     }
 
 }
