@@ -19,6 +19,7 @@ import sample.ticTacToe.TicTacToe;
 public class Main extends Application {
 
     @Override
+    //start() method: implements stg_main with scn_menu
     public void start(Stage stg_main) throws Exception{
         Scene scn_menu = new Scene(drawMenu());
         stg_main.setTitle("Menu");
@@ -26,6 +27,7 @@ public class Main extends Application {
         stg_main.show();
     }
 
+    //drawMenu() method: draws GUI for main menu
     public static StackPane drawMenu(){
         StackPane rt = new StackPane(new Rectangle(400, 200, Color.LIGHTGRAY));
         VBox pn_menuComp = new VBox();
