@@ -59,6 +59,12 @@ public class TicTacToe {
         grid = new Field(3, 3);
         grid.draw();
 
+
+
+
+
+
+
         //CenterPane
         Label lbl_title = new Label("Tic Tac Toe");
         lbl_title.setFont(Font.font ("Verdana", FontWeight.BOLD, 50));
@@ -80,7 +86,14 @@ public class TicTacToe {
             System.out.println("Closing game...");
             stg_ttt.close();
         });
-        HBox pn_toolbarLayout = new HBox(btn_quit, btn_close);
+        //btn_restart : changes scene to this.scn_close
+        Button btn_restart = new Button("Restart");
+        btn_restart.setOnAction(value ->  {
+            System.out.println("Restarting game...");
+            Cell.turn = true;
+            drawGame();
+        });
+        HBox pn_toolbarLayout = new HBox(btn_quit, btn_close, btn_restart);
         pn_toolbarLayout.setPadding(new Insets(5, 5, 5, 5));
         pn_toolbarLayout.setSpacing(5);
         Rectangle rec_toolBarBG = new Rectangle(GAMEWIDTH, 40, Color.GRAY);

@@ -55,29 +55,53 @@ public class Field implements Grid_Intf {
         return this.pn_rt;
     }
 
+    //TODO: FIX WIN CHECK ON ALL...some dont work
     @Override
     public char checkForWin(){
         System.out.println("Checking for win...");
-        char winner = '-';
+        for(int i = 0; i < WIDTH; i++){
+            for(int j = 0; j < WIDTH; j++){
+                System.out.print(cells[j][i].state + " ");
+            }
+            System.out.print("\n");
+        }
+//        if (cells[0][0].state == cells[0][1].state && cells[0][1].state == cells[0][2].state){
+//            return cells[0][0].state;
+//        }
+//        if (cells[1][0].state == cells[1][1].state && cells[1][1].state == cells[1][2].state){
+//            System.out.println("OKOK");
+//            return cells[1][0].state;
+//        }
+//        if (cells[2][0].state == cells[2][1].state && cells[2][1].state == cells[2][2].state){
+//            return cells[2][0].state;
+//        }
+//        if (cells[0][0].state == cells[1][0].state && cells[1][0].state == cells[2][0].state){
+//            return cells[0][0].state;
+//        }
+//        if (cells[0][1].state == cells[1][1].state && cells[1][1].state == cells[2][1].state){
+//            return cells[0][1].state;
+//        }
+//        if (cells[0][2].state == cells[1][2].state && cells[1][2].state == cells[2][2].state){
+//            System.out.println("OKOKKOK");
+//            return cells[0][2].state;
+//        }
+//        if (cells[0][0].state == cells[1][1].state && cells[1][1].state == cells[2][2].state){
+//            return cells[0][0].state;
+//        }
+//        if (cells[2][0].state == cells[1][1].state && cells[1][1].state == cells[0][2].state){
+//            return cells[2][0].state;
+//        }
         for(int i = 0; i < WIDTH ; i++){
-            if (cells[i][0].state == cells[i][1].state && cells[i][1].state == cells[i][2].state){
-                winner = cells[i][0].state;
-                return winner;
-            }
-            if (cells[0][i].state == cells[1][i].state && cells[1][i].state == cells[2][i].state) {
-                winner = cells[0][i].state;
-                return winner;
-            }
+            if (cells[i][0].state == cells[i][1].state && cells[i][1].state == cells[i][2].state && cells[i][0].state != '-')
+                return cells[i][0].state;
+            if (cells[0][i].state == cells[1][i].state && cells[1][i].state == cells[2][i].state && cells[i][0].state != '-')
+                return cells[0][i].state;
         }
-        if (cells[0][0].state == cells[1][1].state && cells[1][1].state == cells[2][2].state) {
-            winner = cells[0][0].state;
-            return winner;
-        }
-        if (cells[2][0].state == cells[1][1].state && cells[1][1].state == cells[0][2].state){
-            winner = cells[2][0].state;
-            return winner;
-        }
-        return winner;
+        if (cells[0][0].state == cells[1][1].state && cells[1][1].state == cells[2][2].state && cells[0][0].state != '-')
+            return cells[0][0].state;
+        if (cells[2][0].state == cells[1][1].state && cells[1][1].state == cells[0][2].state && cells[2][0].state != '-')
+            return cells[2][0].state;
+        return '-';
     }
 
     public void setMouseEvents(Cell c){
@@ -114,14 +138,16 @@ public class Field implements Grid_Intf {
             public void handle(MouseEvent event) {
                 if(gameInProgress){
                     c.rec_btn.setFill(Color.DARKGRAY);
-                    if (Cell.turn){
-                        c.setState('X');
-                        Cell.turn = false;
-                        outputMessage = "Player O's turn";
-                    }else{
-                        c.setState('O');
-                        Cell.turn = true;
-                        outputMessage = "Player X's turn";
+                    if(c.state == '-'){
+                        if (Cell.turn){
+                            c.setState('X');
+                            Cell.turn = false;
+                            outputMessage = "Player O's turn";
+                        }else{
+                            c.setState('O');
+                            Cell.turn = true;
+                            outputMessage = "Player X's turn";
+                        }
                     }
                     if(checkForWin() == 'X'){
                         outputMessage = "Player X's wins!";

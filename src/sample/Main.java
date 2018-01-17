@@ -39,8 +39,6 @@ public class Main extends Application {
         pn_menuComp.setAlignment(Pos.CENTER);
         pn_menuComp.setSpacing(10);
 
-
-
         Button btn_tic = new Button("Play TicTacToe");
         btn_tic.setOnAction(value ->  {
             System.out.println("Creating ticTacToe...");
