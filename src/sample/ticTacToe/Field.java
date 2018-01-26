@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import sample.Cell;
 import sample.Grid_Intf;
 
 public class Field implements Grid_Intf {
@@ -15,7 +16,7 @@ public class Field implements Grid_Intf {
     public int WIDTH;
     public int HIEGHT;
     StackPane pn_rt = new StackPane();
-    Cell[][] cells;
+    TicCell[][] cells;
     public Insets inset = new Insets(10, 10, 10, 10);
 
     public boolean gameInProgress = true;
@@ -26,10 +27,10 @@ public class Field implements Grid_Intf {
     public Field(int w, int h){
         this.WIDTH = w;
         this.HIEGHT = h;
-        cells = new Cell[WIDTH][HIEGHT];
+        cells = new TicCell[WIDTH][HIEGHT];
         for(int i = 0 ; i < WIDTH ; i++){
             for(int j  = 0 ; j < HIEGHT ; j++){
-                cells[i][j] = new Cell(i, j);
+                cells[i][j] = new TicCell(i, j);
             }
         }
     }
@@ -65,32 +66,6 @@ public class Field implements Grid_Intf {
             }
             System.out.print("\n");
         }
-//        if (cells[0][0].state == cells[0][1].state && cells[0][1].state == cells[0][2].state){
-//            return cells[0][0].state;
-//        }
-//        if (cells[1][0].state == cells[1][1].state && cells[1][1].state == cells[1][2].state){
-//            System.out.println("OKOK");
-//            return cells[1][0].state;
-//        }
-//        if (cells[2][0].state == cells[2][1].state && cells[2][1].state == cells[2][2].state){
-//            return cells[2][0].state;
-//        }
-//        if (cells[0][0].state == cells[1][0].state && cells[1][0].state == cells[2][0].state){
-//            return cells[0][0].state;
-//        }
-//        if (cells[0][1].state == cells[1][1].state && cells[1][1].state == cells[2][1].state){
-//            return cells[0][1].state;
-//        }
-//        if (cells[0][2].state == cells[1][2].state && cells[1][2].state == cells[2][2].state){
-//            System.out.println("OKOKKOK");
-//            return cells[0][2].state;
-//        }
-//        if (cells[0][0].state == cells[1][1].state && cells[1][1].state == cells[2][2].state){
-//            return cells[0][0].state;
-//        }
-//        if (cells[2][0].state == cells[1][1].state && cells[1][1].state == cells[0][2].state){
-//            return cells[2][0].state;
-//        }
         for(int i = 0; i < WIDTH ; i++){
             if (cells[i][0].state == cells[i][1].state && cells[i][1].state == cells[i][2].state && cells[i][0].state != '-')
                 return cells[i][0].state;
@@ -104,7 +79,7 @@ public class Field implements Grid_Intf {
         return '-';
     }
 
-    public void setMouseEvents(Cell c){
+    public void setMouseEvents(TicCell c){
         c.pn_layout.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -139,13 +114,13 @@ public class Field implements Grid_Intf {
                 if(gameInProgress){
                     c.rec_btn.setFill(Color.DARKGRAY);
                     if(c.state == '-'){
-                        if (Cell.turn){
+                        if (TicCell.turn){
                             c.setState('X');
-                            Cell.turn = false;
+                            TicCell.turn = false;
                             outputMessage = "Player O's turn";
                         }else{
                             c.setState('O');
-                            Cell.turn = true;
+                            TicCell.turn = true;
                             outputMessage = "Player X's turn";
                         }
                     }
@@ -163,6 +138,7 @@ public class Field implements Grid_Intf {
         });
     }
 
+    @Override
     public void onWin(char winner){
         gameInProgress = false;
         for(int i = 0 ; i < WIDTH ; i++){

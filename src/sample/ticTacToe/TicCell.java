@@ -9,30 +9,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import sample.Cell;
 
-public class Cell{
-    public int posX;
-    public int posY;
+public class TicCell extends Cell {
+
+    public Label lbl_state;
+
     public char state = '-'; // 'X', 'O' , or '-'
     public static boolean turn = true; //true: p1, false: p2
 
-    public StackPane pn_layout;
-    public Label lbl_state;
-    public Rectangle rec_btn;
-
-    public Pane pn_rt = new Pane();
-
     //Cell() Constructor: inits
-    public Cell(int x, int y){
-        this.posX = x;
-        this.posY = y;
-        draw();
-    }
-    //Cell() Constructor: inits
-    public Cell(int x, int y, char st){
-        this.posX = x;
-        this.posY = y;
-        this.state = st;
+    public TicCell(int x, int y){
+        super(x, y);
     }
 
     //setState() method: defines this.state

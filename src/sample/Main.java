@@ -13,12 +13,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import sample.minesweeper.Minesweeper;
 import sample.snakesAndLadders.SnakesAndLadders;
 import sample.ticTacToe.TicTacToe;
 
 public class Main extends Application {
-
-    public TicTacToe ticTacToe;
 
     @Override
     //start() method: implements stg_main with scn_menu
@@ -42,15 +41,19 @@ public class Main extends Application {
         Button btn_tic = new Button("Play TicTacToe");
         btn_tic.setOnAction(value ->  {
             System.out.println("Creating ticTacToe...");
-            ticTacToe = new TicTacToe();
+            new TicTacToe();
         });
         Button btn_snakes = new Button("Play Snakes and Ladders");
         btn_snakes.setOnAction(value ->  {
             System.out.println("Creating snakesAndLadders...");
-            SnakesAndLadders snakesAndLadders = new SnakesAndLadders();
+            new SnakesAndLadders();
         });
-
-        pn_menuComp.getChildren().addAll(lbl_title, btn_tic, btn_snakes);
+        Button btn_minesweeper = new Button("Play Minesweeper");
+        btn_minesweeper.setOnAction(value ->  {
+            System.out.println("Creating Minesweeper...");
+            new Minesweeper();
+        });
+        pn_menuComp.getChildren().addAll(lbl_title, btn_tic, btn_snakes, btn_minesweeper);
         rt.getChildren().addAll(pn_menuComp);
         return rt;
     }
