@@ -12,8 +12,11 @@ public abstract class Cell {
 
     public StackPane pn_layout;
     public Rectangle rec_btn;
+    public Label lbl_state;
 
     public Pane pn_rt = new Pane();
+
+    public boolean uncoverd = false;
 
     public Cell(int x, int y){
         this.posX = x;
@@ -22,5 +25,9 @@ public abstract class Cell {
     }
 
     public abstract void draw();
+
+    public void uncover(){
+
+    }
 
 }

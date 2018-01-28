@@ -98,7 +98,7 @@ public class Minesweeper {
         pn_textBar.getChildren().addAll(rec_textBarBG);
 
         //BorderPane comp
-        BorderPane pn_layout = new BorderPane();
+        BorderPane pn_layout = new BorderPane(); //
         pn_layout.setCenter(pn_gameGrid);
         pn_layout.setTop(pn_toolbar);
 

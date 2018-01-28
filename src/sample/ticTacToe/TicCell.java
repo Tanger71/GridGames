@@ -13,8 +13,6 @@ import sample.Cell;
 
 public class TicCell extends Cell {
 
-    public Label lbl_state;
-
     public char state = '-'; // 'X', 'O' , or '-'
     public static boolean turn = true; //true: p1, false: p2
 
