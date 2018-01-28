@@ -11,7 +11,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import sample.ticTacToe.Field;
 
 public class Minesweeper {
 

@@ -21,13 +21,15 @@ public class OpenCell extends sample.Cell{
         lbl_state = new Label("-"); // NOT INITIALLY ADDED TO pn_layout
         rec_btn.setStrokeWidth(1);
         rec_btn.setStroke(Color.BLACK);
-        pn_layout.getChildren().addAll(rec_btn);
+        tri_flag.getPoints().addAll(3.0, 9.0, 15.0, 3.0, 15.0, 15.0);
+        tri_flag.setFill(Color.TRANSPARENT);
+        pn_layout.getChildren().addAll(rec_btn, tri_flag);
         pn_rt.getChildren().addAll(pn_layout);
 
     }
 
     public void uncover(){
-        uncoverd = true;
+        this.uncoverd = true;
         pn_layout.getChildren().addAll(lbl_state);
     }
 
