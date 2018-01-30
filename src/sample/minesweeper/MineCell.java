@@ -9,14 +9,14 @@ import sample.Cell;
 
 public class MineCell extends Cell {
 
-    public Circle cir_bomb = new Circle(5, Color.BLACK);
+    Circle cir_bomb = new Circle(5, Color.BLACK);
 
-    public MineCell(int x, int y){
+    MineCell(int x, int y) {
         super(x, y);
     }
 
     @Override
-    public void draw(){
+    public void draw() {
         pn_layout = new StackPane();
         rec_btn = new Rectangle(36, 36, Color.DARKGRAY);
         lbl_state = new Label("x"); // NOT INITIALLY ADDED TO pn_layout
@@ -28,13 +28,12 @@ public class MineCell extends Cell {
         pn_rt.getChildren().addAll(pn_layout);
     }
 
-    public void setState(String state){
-        lbl_state.setText(state);
-    }
-
-    public void uncover(){
-        uncoverd = true;
-        pn_layout.getChildren().addAll(lbl_state, cir_bomb);
+    @Override
+    public void uncover() {
+        if (!uncoverd) {
+            pn_layout.getChildren().addAll(lbl_state);
+            this.uncoverd = true;
+        }
     }
 
 }

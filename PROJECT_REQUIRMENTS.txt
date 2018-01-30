@@ -14,7 +14,7 @@ Sawyer Tang and Naod Dereje
  - object
  - downcast
  - override (if you meet one of the above this will be automatic :P)
- - overload TODO: this
+ - overload
 - All above requirements need to be met and USED appropriately
 - You must use Git to keep your code updated and backed up
 any member may make these commits
@@ -23,7 +23,7 @@ any member may make these commits
 
 ## Grading
 
-- formatting and conventions (naming conventions, constructors when they are needed by best practices, @override annotations)
+- formatting and conventions (naming conventions, constructors when they are needed by best practices, @Override annotations)
 - Correctness of implementation (did you use an interface correctly, does it make sense for that entity to be an interface over an abstract class)
 - Functionality (does it and how well does it work)
 - differential grading based on git commit and conribution

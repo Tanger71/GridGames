@@ -14,16 +14,17 @@ public abstract class Cell {
 
     public StackPane pn_layout;
     public Rectangle rec_btn;
-    public Label lbl_state;
+    protected Label lbl_state;
 
     public Pane pn_rt = new Pane();
 
-    public boolean uncoverd;
+    public boolean uncoverd = false;
     public boolean isFlagged;
+    protected int cellState;
 
-    public Polygon tri_flag = new Polygon();
+    protected Polygon tri_flag = new Polygon();
 
-    public Cell(int x, int y){
+    public Cell(int x, int y) {
         this.posX = x;
         this.posY = y;
         this.uncoverd = false;
@@ -34,22 +35,22 @@ public abstract class Cell {
 
     public abstract void draw();
 
-    public void uncover(){
+    public void uncover() {
 
     }
 
     //flag and unflag methods are for the Minesweeper game
-    public void flag(){
+    public void flag() {
         System.out.println("adding flag...");
-        if(!isFlagged){
+        if (!isFlagged) {
             tri_flag.setFill(Color.DARKRED);
             isFlagged = true;
         }
     }
 
-    public void unflag(){
+    public void unflag() {
         System.out.println("removing flag...");
-        if(isFlagged){
+        if (isFlagged) {
             tri_flag.setFill(Color.TRANSPARENT);
             isFlagged = false;
         }

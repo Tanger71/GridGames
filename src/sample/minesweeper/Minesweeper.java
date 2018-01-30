@@ -14,35 +14,35 @@ import javafx.stage.Stage;
 
 public class Minesweeper {
 
-    public Stage stg_mine;
-    public Scene scn_menu;
-    public Scene scn_game;
+    private Stage stg_mine;
 
-    public int GAMEWIDTH = 500;
-    public int GAMEHEIGHT = 580;
+    private int GAMEWIDTH = 500;
+    private int GAMEHEIGHT = 580;
 
-    MineField grid;
+    static Button btn_restart = new Button("Restart");
 
-    public Minesweeper(){
+    //start() Constructor: implements stg_mine with this.drawMenu()
+    public Minesweeper() {
         stg_mine = new Stage();
-        scn_menu = new Scene(this.drawMenu());
+        Scene scn_menu = new Scene(this.drawMenu());
 
-        stg_mine.setTitle("TicTacToe");
+        stg_mine.setTitle("Minesweeper");
         stg_mine.setScene(scn_menu);
         stg_mine.show();
     }
 
-    public StackPane drawMenu(){
+    //drawMenu() method: draws the game menu
+    private StackPane drawMenu() {
         StackPane rtn = new StackPane(new Rectangle(GAMEWIDTH, GAMEHEIGHT, Color.LIGHTGRAY));
         VBox pn_menuComp = new VBox();
         StackPane.setAlignment(pn_menuComp, Pos.CENTER_LEFT);
         Label lbl_title = new Label("Minesweeper");
-        lbl_title.setFont(Font.font ("Verdana", FontWeight.BOLD, 50));
+        lbl_title.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
         pn_menuComp.setAlignment(Pos.CENTER);
         pn_menuComp.setSpacing(10);
 
         Button btn_tic = new Button("Play Minesweeper");
-        btn_tic.setOnAction(value ->  {
+        btn_tic.setOnAction(value -> {
             System.out.println("Changing scene...");
             drawGame();
         });
@@ -52,13 +52,14 @@ public class Minesweeper {
         return rtn;
     }
 
-    public void drawGame(){
-        grid = new MineField(10, 10, 20);
+    //drawMenu() method: draws the game scene
+    private void drawGame() {
+        MineField grid = new MineField(10, 10, 20);
         grid.draw();
 
         //CenterPane
         Label lbl_title = new Label("Minesweeper");
-        lbl_title.setFont(Font.font ("Verdana", FontWeight.BOLD, 50));
+        lbl_title.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
         lbl_title.setTranslateY(-200);
         Pane pn_grid = grid.getPane();
         pn_grid.setTranslateY(40);
@@ -67,19 +68,18 @@ public class Minesweeper {
         //TopPane
         //btn_quit : quits application
         Button btn_quit = new Button("Quit");
-        btn_quit.setOnAction(value ->  {
+        btn_quit.setOnAction(value -> {
             System.out.println("Quitting...");
             System.exit(0);
         });
         //btn_close : changes scene to this.scn_close
         Button btn_close = new Button("Close Game");
-        btn_close.setOnAction(value ->  {
+        btn_close.setOnAction(value -> {
             System.out.println("Closing game...");
             stg_mine.close();
         });
         //btn_restart : changes scene to this.scn_close
-        Button btn_restart = new Button("Restart");
-        btn_restart.setOnAction(value ->  {
+        btn_restart.setOnAction(value -> {
             System.out.println("Restarting game...");
             drawGame();
         });
@@ -91,7 +91,6 @@ public class Minesweeper {
         pn_toolbar.getChildren().addAll(rec_toolBarBG, pn_toolbarLayout);
 
         //BottomPane
-
         Rectangle rec_textBarBG = new Rectangle(GAMEWIDTH, 40, Color.WHITE);
         Pane pn_textBar = new Pane();
         pn_textBar.getChildren().addAll(rec_textBarBG);
@@ -103,7 +102,7 @@ public class Minesweeper {
 
         Pane pn_rt = new Pane();
         pn_rt.getChildren().addAll(pn_layout);
-        scn_game = new Scene(pn_rt);
+        Scene scn_game = new Scene(pn_rt);
 
         stg_mine.setScene(scn_game);
         stg_mine.show();

@@ -17,11 +17,22 @@ import sample.minesweeper.Minesweeper;
 import sample.snakesAndLadders.SnakesAndLadders;
 import sample.ticTacToe.TicTacToe;
 
+/**
+ * Collection of Grid-Based Games
+ * - TicTacToe
+ * - Minesweeper
+ * - SnakesAndLadders
+ *
+ * Created by:
+ * Sawyer Tang (TicTacToe, Minesweeper) 1/29/2018
+ * Naod Dereje (SnakesAndLadders)
+ */
+
 public class Main extends Application {
 
     @Override
     //start() method: implements stg_main with scn_menu
-    public void start(Stage stg_main) throws Exception{
+    public void start(Stage stg_main) throws Exception {
         Scene scn_menu = new Scene(drawMenu());
         stg_main.setTitle("Menu");
         stg_main.setScene(scn_menu);
@@ -29,27 +40,27 @@ public class Main extends Application {
     }
 
     //drawMenu() method: draws GUI for main menu
-    public StackPane drawMenu(){
+    private StackPane drawMenu() {
         StackPane rt = new StackPane(new Rectangle(400, 200, Color.LIGHTGRAY));
         VBox pn_menuComp = new VBox();
         StackPane.setAlignment(pn_menuComp, Pos.CENTER_LEFT);
         Label lbl_title = new Label("Grid Games");
-        lbl_title.setFont(Font.font ("Verdana", FontWeight.BOLD, 50));
+        lbl_title.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
         pn_menuComp.setAlignment(Pos.CENTER);
         pn_menuComp.setSpacing(10);
 
         Button btn_tic = new Button("Play TicTacToe");
-        btn_tic.setOnAction(value ->  {
+        btn_tic.setOnAction(value -> {
             System.out.println("Creating ticTacToe...");
             new TicTacToe();
         });
         Button btn_snakes = new Button("Play Snakes and Ladders");
-        btn_snakes.setOnAction(value ->  {
+        btn_snakes.setOnAction(value -> {
             System.out.println("Creating snakesAndLadders...");
             new SnakesAndLadders();
         });
         Button btn_minesweeper = new Button("Play Minesweeper");
-        btn_minesweeper.setOnAction(value ->  {
+        btn_minesweeper.setOnAction(value -> {
             System.out.println("Creating Minesweeper...");
             new Minesweeper();
         });
@@ -58,7 +69,7 @@ public class Main extends Application {
         return rt;
     }
 
-    
+
     public static void main(String[] args) {
         launch(args);
     }

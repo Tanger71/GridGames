@@ -1,6 +1,5 @@
 package sample.ticTacToe;
 
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,20 +13,17 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class TicTacToe {
-    public Stage stg_ttt;
-    public Scene scn_menu;
-    public Scene scn_game;
+    private Stage stg_ttt;
 
-    public int GAMEWIDTH = 500;
-    public int GAMEHEIGHT = 580;
+    private int GAMEWIDTH = 500;
+    private int GAMEHEIGHT = 580;
 
-    public Field grid;
-    public static Label lbl_message;
+    private static Label lbl_message;
 
-    //TicTacToe() Constructor: inits, implement stg_ttt Stage with scn_menu
-    public TicTacToe(){
+    // TicTacToe() Constructor: inits, implement stg_ttt Stage with scn_menu
+    public TicTacToe() {
         stg_ttt = new Stage();
-        scn_menu = new Scene(drawMenu());
+        Scene scn_menu = new Scene(drawMenu());
 
         stg_ttt.setTitle("TicTacToe");
         stg_ttt.setScene(scn_menu);
@@ -35,17 +31,17 @@ public class TicTacToe {
     }
 
     //drawMenu() method: draws GUI for ttt menu
-    public StackPane drawMenu(){
+    private StackPane drawMenu() {
         StackPane rtn = new StackPane();
         VBox pn_menuComp = new VBox();
         StackPane.setAlignment(pn_menuComp, Pos.CENTER_LEFT);
         Label lbl_title = new Label("Tic Tac Toe");
-        lbl_title.setFont(Font.font ("Verdana", FontWeight.BOLD, 50));
+        lbl_title.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
         pn_menuComp.setAlignment(Pos.CENTER);
         pn_menuComp.setSpacing(10);
 
         Button btn_tic = new Button("Play TicTacToe");
-        btn_tic.setOnAction(value ->  {
+        btn_tic.setOnAction(value -> {
             System.out.println("Changing scene...");
             drawGame();
         });
@@ -57,13 +53,13 @@ public class TicTacToe {
     }
 
     //drawGame() method: draws GUI for ttt game
-    public void drawGame(){
-        grid = new Field(3, 3);
+    private void drawGame() {
+        Field grid = new Field(3, 3);
         grid.draw();
 
         //CenterPane
         Label lbl_title = new Label("Tic Tac Toe");
-        lbl_title.setFont(Font.font ("Verdana", FontWeight.BOLD, 50));
+        lbl_title.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
         lbl_title.setTranslateY(-200);
         Pane pn_grid = grid.getPane();
         pn_grid.setTranslateY(40);
@@ -72,19 +68,19 @@ public class TicTacToe {
         //TopPane
         //btn_quit : quits application
         Button btn_quit = new Button("Quit");
-        btn_quit.setOnAction(value ->  {
+        btn_quit.setOnAction(value -> {
             System.out.println("Quitting...");
             System.exit(0);
         });
         //btn_close : changes scene to this.scn_close
         Button btn_close = new Button("Close Game");
-        btn_close.setOnAction(value ->  {
+        btn_close.setOnAction(value -> {
             System.out.println("Closing game...");
             stg_ttt.close();
         });
         //btn_restart : changes scene to this.scn_close
         Button btn_restart = new Button("Restart");
-        btn_restart.setOnAction(value ->  {
+        btn_restart.setOnAction(value -> {
             System.out.println("Restarting game...");
             TicCell.turn = true;
             drawGame();
@@ -99,7 +95,7 @@ public class TicTacToe {
         //BottomPane
         lbl_message = new Label();
         updateMessage();
-        lbl_message.setFont(Font.font ("Verdana", FontWeight.BOLD, 20));
+        lbl_message.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         lbl_message.setTranslateY(8);
         lbl_message.setTranslateX(10);
         Rectangle rec_textBarBG = new Rectangle(GAMEWIDTH, 40, Color.WHITE);
@@ -114,13 +110,13 @@ public class TicTacToe {
 
         Pane pn_rt = new Pane();
         pn_rt.getChildren().addAll(pn_layout);
-        scn_game = new Scene(pn_rt);
+        Scene scn_game = new Scene(pn_rt);
 
         stg_ttt.setScene(scn_game);
         stg_ttt.show();
     }
 
-    public static void updateMessage(){
+    static void updateMessage() {
         lbl_message.setText(Field.outputMessage);
     }
 

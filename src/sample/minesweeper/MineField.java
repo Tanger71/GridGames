@@ -11,28 +11,28 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import sample.Cell;
 import sample.Grid_Intf;
-import sample.ticTacToe.TicCell;
-import sample.ticTacToe.TicTacToe;
 
 import java.util.Random;
 
+import static sample.minesweeper.Minesweeper.btn_restart;
+
 public class MineField implements Grid_Intf {
 
+    private final int WIDTH;
+    private final int HEIGHT;
+    private final int MINES;
 
-    public int WIDTH;
-    public int HEIGHT;
-    public int MINES;
+    private int minesMarked = 0;
 
-    public int minesMarked = 0;
+    private StackPane pn_rt = new StackPane();
+    private Cell[][] cells;
+    private GridPane pn_layout;
+    private Insets inset = new Insets(1, 1, 1, 1);
 
-    public StackPane pn_rt = new StackPane();
-    public Cell[][] cells;
-    public GridPane pn_layout;
-    public Insets inset = new Insets(1, 1, 1, 1);
+    private boolean isFirstClick = true;
 
-    public boolean isFirstClick = true;
-
-    public MineField(int w, int h, int m) {
+    //MineField() Constructor: inits final vars, fills this.cells array
+    MineField(int w, int h, int m) {
         this.WIDTH = w;
         this.HEIGHT = h;
         this.MINES = m;
@@ -44,14 +44,14 @@ public class MineField implements Grid_Intf {
         }
     }
 
+    //draw() method: draws the grid UI
     @Override
     public void draw() {
-        //TODO: GUI
         pn_layout = new GridPane();
-        for(int i = 0 ; i < this.WIDTH ; i++){
-            for(int j  = 0 ; j < this.HEIGHT ; j++){
+        for (int i = 0; i < this.WIDTH; i++) {
+            for (int j = 0; j < this.HEIGHT; j++) {
                 pn_layout.add(this.cells[i][j].pn_rt, i, j);
-                pn_layout.setMargin(this.cells[i][j].pn_rt, this.inset);
+                GridPane.setMargin(this.cells[i][j].pn_rt, this.inset);
                 setMouseEvents(this.cells[i][j]);
             }
         }
@@ -59,17 +59,19 @@ public class MineField implements Grid_Intf {
         this.pn_rt.getChildren().addAll(pn_layout);
     }
 
-    public void plantBombs(int notX, int notY) {
+    //plantBombs() method: randomly assigns MineCell objects to this.cells array indexs after the first click,
+    // Avoids placing on the first cell clicked or the 8 around it
+    private void plantBombs(int notX, int notY) {
         boolean dontPlace = false;
         Random random = new Random();
         int minesPlaced = 0;
         while (minesPlaced <= this.MINES) {
             int x = random.nextInt(this.WIDTH);
             int y = random.nextInt(this.HEIGHT);
-            for(int i = -1 ; i <= 1 ; i++){
-                for(int j = -1 ; j <= 1 ; j++){
-                    if(x + i < WIDTH && x + i >= 0 && y + j < HEIGHT && y + j >= 0) {
-                        if(x == notX + i && y == notY + j){
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    if (x + i < WIDTH && x + i >= 0 && y + j < HEIGHT && y + j >= 0) {
+                        if (x == notX + i && y == notY + j) {
                             dontPlace = true;
                         }
                     }
@@ -80,7 +82,7 @@ public class MineField implements Grid_Intf {
                 this.cells[x][y].rec_btn.setFill(Color.TRANSPARENT);
                 this.cells[x][y] = new MineCell(x, y);
                 pn_layout.add(this.cells[x][y].pn_rt, x, y);
-                pn_layout.setMargin(this.cells[x][y].pn_rt, this.inset);
+                GridPane.setMargin(this.cells[x][y].pn_rt, this.inset);
                 setMouseEvents(this.cells[x][y]);
 
                 minesPlaced++;
@@ -91,30 +93,33 @@ public class MineField implements Grid_Intf {
 
     }
 
+    //getPane() method: returns this.pn_rt
     @Override
     public Pane getPane() {
-        return pn_rt;
+        return this.pn_rt;
     }
 
     @Override
     public char checkForWin() {
-        if(minesMarked == MINES){
-//            System.out.println((char)(MINES - minesMarked + 48) + " Mines left.");
-            return (char)(MINES - minesMarked + 48);
-        }
-        return '0';
+        return (char) (MINES - minesMarked + 48);
     }
 
     @Override
-    public void onWin(char winner) {
-
+    public void onGameEnd(char winner) {
+        btn_restart.setStyle("fx-background-color: #89e5ff");
+        System.out.print("Therer are " + winner + " mines left!");
     }
 
-    public void setMouseEvents(Cell c) {
+    private void onGameEnd() { // Overloaded method
+        btn_restart.setStyle("fx-background-color: #ff7c7c");
+        System.out.print("You lose...");
+    }
+
+    private void setMouseEvents(Cell c) {
         c.pn_layout.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(!c.uncoverd){
+                if (!c.uncoverd) {
                     c.rec_btn.setStrokeWidth(2);
                     c.rec_btn.setWidth(34);
                     c.rec_btn.setHeight(34);
@@ -124,7 +129,7 @@ public class MineField implements Grid_Intf {
         c.pn_layout.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(!c.uncoverd){
+                if (!c.uncoverd) {
                     c.rec_btn.setStrokeWidth(1);
                     c.rec_btn.setWidth(36);
                     c.rec_btn.setHeight(36);
@@ -134,7 +139,7 @@ public class MineField implements Grid_Intf {
         c.pn_layout.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(!c.uncoverd){
+                if (!c.uncoverd) {
                     c.rec_btn.setFill(Color.GRAY);
                 }
             }
@@ -142,34 +147,38 @@ public class MineField implements Grid_Intf {
         c.pn_layout.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (event.getButton() == MouseButton.SECONDARY){
-                    if(c.isFlagged){
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    if (c.isFlagged) {
                         c.unflag();
-                    }else if(!c.isFlagged){
+                        minesMarked--;
+                    } else {
                         c.flag();
+                        minesMarked++;
                     }
                     c.rec_btn.setFill(Color.DARKGRAY);
-                }else{
-                    if(!c.uncoverd){
-                        c.uncoverd = true;
+                } else {
+                    if (!c.uncoverd) {
                         c.rec_btn.setStrokeWidth(1);
                         c.rec_btn.setWidth(36);
                         c.rec_btn.setHeight(36);
-                        if(isFirstClick){
+                        if (isFirstClick) {
                             isFirstClick = false;
                             plantBombs(c.posX, c.posY);
-                            for(int i = 0 ; i < WIDTH ; i++){
-                                for(int j  = 0 ; j < HEIGHT ; j++){
-                                    if (!(cells[i][j] instanceof MineCell)){
-                                        ((OpenCell)cells[i][j]).setState(Integer.toString(calcMinesNear(cells[i][j])));
+                            for (int i = 0; i < WIDTH; i++) {
+                                for (int j = 0; j < HEIGHT; j++) {
+                                    if (!(cells[i][j] instanceof MineCell)) {
+                                        ((OpenCell) cells[i][j]).setState(Integer.toString(calcMinesNear(cells[i][j])));
                                     }
                                 }
                             }
                         }
-                        if(c instanceof MineCell){
+                        if (c instanceof MineCell) {
                             onclickMine((MineCell) c); //Downcast
-                        }else{
+                        } else {
                             onclickOpen((OpenCell) c); //Downcast
+                        }
+                        if (checkForWin() == 0) {
+                            onGameEnd(checkForWin());
                         }
                         System.out.println("clicked on " + c.posX + " " + c.posY);
                     }
@@ -179,11 +188,10 @@ public class MineField implements Grid_Intf {
         });
     }
 
-    public void onclickMine(MineCell c){
-        System.out.println("Game Over.");
-        for(int i = 0 ; i < WIDTH ; i++){
-            for(int j  = 0 ; j < HEIGHT ; j++){
-                if (!cells[i][j].uncoverd){
+    private void onclickMine(MineCell c) {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                if (!cells[i][j].uncoverd) {
                     cells[i][j].uncover();
                     cells[i][j].unflag();
                 }
@@ -192,19 +200,21 @@ public class MineField implements Grid_Intf {
         c.cir_bomb.setStroke(Color.DARKRED);
         c.cir_bomb.setStrokeWidth(1);
         c.pn_layout.getChildren().add(c.cir_bomb);
+        onGameEnd();
     }
 
-    public void onclickOpen(OpenCell c){
+    private void onclickOpen(OpenCell c) {
+        System.out.println("Open!");
         c.uncover();
     }
 
-    public int calcMinesNear(Cell c){
+    private int calcMinesNear(Cell c) {
         int x = c.posX;
         int y = c.posY;
         int mineCount = 0;
-        for(int i = -1 ; i <= 1 ; i++){
-            for(int j = -1 ; j <= 1 ; j++){
-                if(x + i < WIDTH && x + i >= 0 && y + j < HEIGHT && y + j >= 0) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (x + i < WIDTH && x + i >= 0 && y + j < HEIGHT && y + j >= 0) {
                     if (cells[x + i][y + j] instanceof MineCell) {
                         mineCount++;
                     }
@@ -213,9 +223,4 @@ public class MineField implements Grid_Intf {
         }
         return mineCount;
     }
-
-//    public void autoUncover(int x, int y){
-//
-//    }
-
 }
