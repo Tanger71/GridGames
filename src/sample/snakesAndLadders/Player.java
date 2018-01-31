@@ -18,7 +18,7 @@ public class Player extends Dice {
     /**
      * Sets hasPowerup to true
      */
-    void earnPowerup() {
+    public void earnPowerup() {
         this.hasPowerup = true;
         System.out.println(name + " earned powerup");
     }
@@ -26,7 +26,7 @@ public class Player extends Dice {
     /**
      * Sets hasDisadv to true
      */
-    void earnDisadv() {
+    public void earnDisadv() {
         this.hasDisadv = true;
         System.out.println(name + " has disadvantage");
     }
@@ -37,7 +37,7 @@ public class Player extends Dice {
      *
      * @return The number of spaces to move on the board.
      */
-    int takeTurn() {
+    public int takeTurn() {
 
         //Initialize scanner
         Scanner scan = new Scanner(System.in);

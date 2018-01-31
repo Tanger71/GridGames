@@ -21,7 +21,9 @@ public class Minesweeper {
 
     static Button btn_restart = new Button("Restart");
 
-    //start() Constructor: implements stg_mine with this.drawMenu()
+    /**
+     * implements stg_mine with this.drawMenu()
+     */
     public Minesweeper() {
         stg_mine = new Stage();
         Scene scn_menu = new Scene(this.drawMenu());
@@ -31,7 +33,9 @@ public class Minesweeper {
         stg_mine.show();
     }
 
-    //drawMenu() method: draws the game menu
+    /**
+     * @return game menu
+     */
     private StackPane drawMenu() {
         StackPane rtn = new StackPane(new Rectangle(GAMEWIDTH, GAMEHEIGHT, Color.LIGHTGRAY));
         VBox pn_menuComp = new VBox();
@@ -52,7 +56,9 @@ public class Minesweeper {
         return rtn;
     }
 
-    //drawMenu() method: draws the game scene
+    /**
+     * draws the game scene
+     */
     private void drawGame() {
         MineField grid = new MineField(10, 10, 20);
         grid.draw();

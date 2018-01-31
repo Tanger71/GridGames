@@ -11,10 +11,17 @@ public class MineCell extends Cell {
 
     Circle cir_bomb = new Circle(5, Color.BLACK);
 
+    /**
+     * @param x x position of cell
+     * @param y y position of cell
+     */
     MineCell(int x, int y) {
         super(x, y);
     }
 
+    /**
+     * Inits GUI elements for cell
+     */
     @Override
     public void draw() {
         pn_layout = new StackPane();
@@ -28,6 +35,9 @@ public class MineCell extends Cell {
         pn_rt.getChildren().addAll(pn_layout);
     }
 
+    /**
+     * reveals specific cell components
+     */
     @Override
     public void uncover() {
         if (!uncoverd) {

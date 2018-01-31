@@ -34,7 +34,9 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     @Override
-    //start() method: implements stg_main with scn_menu
+    /**
+     * Implements stg_main with scn_menu
+     */
     public void start(Stage stg_main) throws Exception {
         Scene scn_menu = new Scene(drawMenu());
         stg_main.setTitle("Menu");
@@ -42,7 +44,10 @@ public class Main extends Application {
         stg_main.show();
     }
 
-    //drawMenu() method: draws GUI for main menu
+    /**
+     * draws GUI for main menu
+     * @return StackPane
+     */
     private StackPane drawMenu() {
         StackPane rt = new StackPane(new Rectangle(400, 200, Color.LIGHTGRAY));
         VBox pn_menuComp = new VBox();
@@ -57,7 +62,7 @@ public class Main extends Application {
             System.out.println("Creating ticTacToe...");
             new TicTacToe();
         });
-        Button btn_snakes = new Button("Play Snakes and Ladders");
+        Button btn_snakes = new Button("Play Snakes and Ladders (textGame)");
         btn_snakes.setOnAction(value -> {
             System.out.println("Creating snakesAndLadders...");
             new SnakesAndLadders(new ArrayList<Player>());

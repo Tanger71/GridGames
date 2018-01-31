@@ -13,18 +13,26 @@ public class TicCell extends Cell {
     char state = '-'; // 'X', 'O' , or '-'
     static boolean turn = true; //true: p1, false: p2
 
-    //Cell() Constructor: inits
+    /**
+     * @param x cell position x
+     * @param y cell position y
+     */
     TicCell(int x, int y) {
         super(x, y);
     }
 
-    //setState() method: defines this.state
+    /**
+     * asigns this.state
+     * @param st state char
+     */
     void setState(char st) {
         this.state = st;
         lbl_state.setText(Character.toString(this.state));
     }
 
-    //draw() method: draws GUI for this.pn_rt
+    /**
+     * draws GUI for cell
+     */
     public void draw() {
         pn_layout = new StackPane();
         lbl_state = new Label(Character.toString(this.state));

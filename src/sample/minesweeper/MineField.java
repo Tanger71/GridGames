@@ -31,7 +31,12 @@ public class MineField implements Grid_Intf {
 
     private boolean isFirstClick = true;
 
-    //MineField() Constructor: inits final vars, fills this.cells array
+    /**
+     * inits final vars, fills this.cells array
+     * @param w int width of board
+     * @param h int height of board
+     * @param m int number of mines
+     */
     MineField(int w, int h, int m) {
         this.WIDTH = w;
         this.HEIGHT = h;
@@ -44,7 +49,9 @@ public class MineField implements Grid_Intf {
         }
     }
 
-    //draw() method: draws the grid UI
+    /**
+     * draws the grid UI
+     */
     @Override
     public void draw() {
         pn_layout = new GridPane();
@@ -59,8 +66,12 @@ public class MineField implements Grid_Intf {
         this.pn_rt.getChildren().addAll(pn_layout);
     }
 
-    //plantBombs() method: randomly assigns MineCell objects to this.cells array indexs after the first click,
-    // Avoids placing on the first cell clicked or the 8 around it
+    /**
+     * Randomly assigns MineCell objects to this.cells array indexs after the first click,
+     * Avoids placing on the first cell clicked or the 8 around it
+     * @param notX x Value where not to generate a mine
+     * @param notY y Value where not to generate a mine
+     */
     private void plantBombs(int notX, int notY) {
         boolean dontPlace = false;
         Random random = new Random();
@@ -93,32 +104,43 @@ public class MineField implements Grid_Intf {
 
     }
 
-    //getPane() method: returns this.pn_rt
+    /**
+     * @return pane of grid field
+     */
     @Override
     public Pane getPane() {
         return this.pn_rt;
     }
 
-    //checkForWin() method: returns the difference in mines marked to minesTotal
+    /**
+     * @return the difference in mines marked to minesTotal
+     */
     @Override
     public char checkForWin() {
         return (char) (MINES - minesMarked + 48);
     }
 
-    //onGameEnd() method: outputs win statement to consol
+    /**
+     * outputs win statement to consol
+     * @param winner number of mines left on board
+     */
     @Override
     public void onGameEnd(char winner) {
         btn_restart.setStyle("fx-background-color: #89e5ff");
         System.out.print("Therer are " + winner + " mines left!");
     }
 
-    //onGameEnd() method: outputs lose statement to consol
+    /**
+     * outputs lose statement to consol
+     */
     private void onGameEnd() { // Overloaded method
         btn_restart.setStyle("fx-background-color: #ff7c7c");
         System.out.print("You lose...");
     }
 
-    //setMouseEvents() method: set mouseEvents
+    /**
+     * @param c cell to implement MouseEvents to
+     */
     private void setMouseEvents(Cell c) {
         c.pn_layout.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
@@ -192,7 +214,10 @@ public class MineField implements Grid_Intf {
         });
     }
 
-    //onClickMine() method: UI for when mine is clicked
+    /**
+     * UI for when mine is clicked
+     * @param c cell to pull GUI elements from
+     */
     private void onclickMine(MineCell c) {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
@@ -207,13 +232,20 @@ public class MineField implements Grid_Intf {
         onGameEnd();
     }
 
-    //onClickOpen() method: UI for when open cell is clicked
+    /**
+     * UI for when open cell is clicked
+     * @param c cell to pull GUI elements from
+     */
     private void onclickOpen(OpenCell c) {
         System.out.println("Open!");
         c.uncover();
     }
 
-    //calcMinesNear() method: finds number of mines around clicked cell
+    /**
+     * finds number of mines around clicked cell
+     * @param c cell to check for mine proximity
+     * @return number of mines around c
+     */
     private int calcMinesNear(Cell c) {
         int x = c.posX;
         int y = c.posY;

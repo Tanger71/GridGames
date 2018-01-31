@@ -7,10 +7,17 @@ import javafx.scene.shape.Rectangle;
 
 public class OpenCell extends sample.Cell {
 
+    /**
+     * @param x x position of cell
+     * @param y y position of cell
+     */
     OpenCell(int x, int y) {
         super(x, y);
     }
 
+    /**
+     * Inits GUI elements for cell
+     */
     @Override
     public void draw() {
         pn_layout = new StackPane();
@@ -24,6 +31,9 @@ public class OpenCell extends sample.Cell {
         pn_rt.getChildren().addAll(pn_layout);
     }
 
+    /**
+     * reveals specific cell components
+     */
     @Override
     public void uncover() {
         if (!uncoverd) {
@@ -32,6 +42,9 @@ public class OpenCell extends sample.Cell {
         }
     }
 
+    /**
+     * @param state string to be displayed on cell: mine proximity
+     */
     void setState(String state) {
         this.cellState = Integer.parseInt(state);
         lbl_state.setText(state);

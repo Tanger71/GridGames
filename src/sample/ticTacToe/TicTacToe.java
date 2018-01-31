@@ -20,7 +20,9 @@ public class TicTacToe {
 
     private static Label lbl_message;
 
-    // TicTacToe() Constructor: inits, implement stg_ttt Stage with scn_menu
+    /**
+     * inits, implement stg_ttt Stage with scn_menu
+     */
     public TicTacToe() {
         stg_ttt = new Stage();
         Scene scn_menu = new Scene(drawMenu());
@@ -30,7 +32,9 @@ public class TicTacToe {
         stg_ttt.show();
     }
 
-    //drawMenu() method: draws GUI for ttt menu
+    /**
+     * @return GUI for ttt menu
+     */
     private StackPane drawMenu() {
         StackPane rtn = new StackPane();
         VBox pn_menuComp = new VBox();
@@ -52,7 +56,9 @@ public class TicTacToe {
         return rtn;
     }
 
-    //drawGame() method: draws GUI for ttt game
+    /**
+     * draws GUI for ttt game
+     */
     private void drawGame() {
         Field grid = new Field(3, 3);
         grid.draw();
@@ -116,6 +122,9 @@ public class TicTacToe {
         stg_ttt.show();
     }
 
+    /**
+     * updates game message on Bottom of BorderPane
+     */
     static void updateMessage() {
         lbl_message.setText(Field.outputMessage);
     }

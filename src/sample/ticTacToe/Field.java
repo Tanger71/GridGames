@@ -22,7 +22,10 @@ public class Field implements Grid_Intf {
 
     static String outputMessage = "Player X's turn";
 
-    //Field() Constructor: inits
+    /**
+     * @param w width of field
+     * @param h height of field
+     */
     Field(int w, int h) {
         this.WIDTH = w;
         this.HIEGHT = h;
@@ -34,8 +37,10 @@ public class Field implements Grid_Intf {
         }
     }
 
+    /**
+     * draws GUI for the game grid
+     */
     @Override
-    //draw() method: draws GUI for the game grid
     public void draw() {
         GridPane pn_layout = new GridPane();
         for (int i = 0; i < WIDTH; i++) {
@@ -49,12 +54,17 @@ public class Field implements Grid_Intf {
         pn_rt.getChildren().addAll(pn_layout);
     }
 
+    /**
+     * @return field GUI
+     */
     @Override
-    //getPane() method: returns this.pn_rt
     public Pane getPane() {
         return this.pn_rt;
     }
 
+    /**
+     * @return checks for game win condition
+     */
     @Override
     public char checkForWin() {
         System.out.println("Checking for win...");
@@ -77,6 +87,10 @@ public class Field implements Grid_Intf {
         return '-';
     }
 
+    /**
+     * inits mouse events on cell
+     * @param c cell to be modified
+     */
     private void setMouseEvents(TicCell c) {
         c.pn_layout.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
@@ -136,6 +150,10 @@ public class Field implements Grid_Intf {
         });
     }
 
+    /**
+     * cleans up game
+     * @param winner char 'X or 'O'
+     */
     @Override
     public void onGameEnd(char winner) {
         gameInProgress = false;

@@ -24,6 +24,11 @@ public abstract class Cell {
 
     protected Polygon tri_flag = new Polygon();
 
+    /**
+     * inits stuff
+     * @param x x position of cell
+     * @param y y position of cell
+     */
     public Cell(int x, int y) {
         this.posX = x;
         this.posY = y;
@@ -33,13 +38,21 @@ public abstract class Cell {
         this.draw();
     }
 
+    /**
+     * Inits GUI elements for cell
+     */
     public abstract void draw();
 
+    /**
+     * reveals specific cell components
+     */
     public void uncover() {
 
     }
 
-    //flag and unflag methods are for the Minesweeper game
+    /**
+     * flags a cell on rightclick
+     */
     public void flag() {
         System.out.println("adding flag...");
         if (!isFlagged) {
@@ -48,6 +61,9 @@ public abstract class Cell {
         }
     }
 
+    /**
+     * removes flag on rightclick
+     */
     public void unflag() {
         System.out.println("removing flag...");
         if (isFlagged) {
