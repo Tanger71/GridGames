@@ -14,8 +14,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import sample.minesweeper.Minesweeper;
+import sample.snakesAndLadders.Player;
 import sample.snakesAndLadders.SnakesAndLadders;
 import sample.ticTacToe.TicTacToe;
+
+import java.util.ArrayList;
 
 /**
  * Collection of Grid-Based Games
@@ -57,7 +60,7 @@ public class Main extends Application {
         Button btn_snakes = new Button("Play Snakes and Ladders");
         btn_snakes.setOnAction(value -> {
             System.out.println("Creating snakesAndLadders...");
-            new SnakesAndLadders();
+            new SnakesAndLadders(new ArrayList<Player>());
         });
         Button btn_minesweeper = new Button("Play Minesweeper");
         btn_minesweeper.setOnAction(value -> {
