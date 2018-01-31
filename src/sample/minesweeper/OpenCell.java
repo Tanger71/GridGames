@@ -37,6 +37,7 @@ public class OpenCell extends sample.Cell {
     @Override
     public void uncover() {
         if (!uncoverd) {
+            rec_btn.setFill(Color.GREY);
             pn_layout.getChildren().addAll(lbl_state);
             this.uncoverd = true;
         }

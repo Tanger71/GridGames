@@ -17,6 +17,7 @@ public class MineCell extends Cell {
      */
     MineCell(int x, int y) {
         super(x, y);
+        this.cellState = -1;
     }
 
     /**

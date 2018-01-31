@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import sample.Cell;
 import sample.Grid_Intf;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static sample.minesweeper.Minesweeper.btn_restart;
@@ -33,6 +34,7 @@ public class MineField implements Grid_Intf {
 
     /**
      * inits final vars, fills this.cells array
+     *
      * @param w int width of board
      * @param h int height of board
      * @param m int number of mines
@@ -69,6 +71,7 @@ public class MineField implements Grid_Intf {
     /**
      * Randomly assigns MineCell objects to this.cells array indexs after the first click,
      * Avoids placing on the first cell clicked or the 8 around it
+     *
      * @param notX x Value where not to generate a mine
      * @param notY y Value where not to generate a mine
      */
@@ -122,6 +125,7 @@ public class MineField implements Grid_Intf {
 
     /**
      * outputs win statement to consol
+     *
      * @param winner number of mines left on board
      */
     @Override
@@ -190,6 +194,7 @@ public class MineField implements Grid_Intf {
                         if (isFirstClick) {
                             isFirstClick = false;
                             plantBombs(c.posX, c.posY);
+                            System.out.println("calcminesnear");
                             for (int i = 0; i < WIDTH; i++) {
                                 for (int j = 0; j < HEIGHT; j++) {
                                     if (!(cells[i][j] instanceof MineCell)) {
@@ -216,6 +221,7 @@ public class MineField implements Grid_Intf {
 
     /**
      * UI for when mine is clicked
+     *
      * @param c cell to pull GUI elements from
      */
     private void onclickMine(MineCell c) {
@@ -234,15 +240,18 @@ public class MineField implements Grid_Intf {
 
     /**
      * UI for when open cell is clicked
+     *
      * @param c cell to pull GUI elements from
      */
     private void onclickOpen(OpenCell c) {
         System.out.println("Open!");
         c.uncover();
+        autoUncover(c);
     }
 
     /**
      * finds number of mines around clicked cell
+     *
      * @param c cell to check for mine proximity
      * @return number of mines around c
      */
@@ -260,5 +269,36 @@ public class MineField implements Grid_Intf {
             }
         }
         return mineCount;
+    }
+
+    /**
+     * automatically uncovers cells and its adjacent cells that have values of zero
+     * some help from Felix's code
+     *
+     * @param c
+     */
+    private void autoUncover(Cell c) { //TODO: FINISH!!!
+        System.out.println("uncovering...");
+        ArrayList<BoardPosition> toBeChecked = new ArrayList<>();
+        if(c.cellState == 0){
+            toBeChecked.add(new BoardPosition(c.posX, c.posY));
+            while (!toBeChecked.isEmpty()) {
+                BoardPosition checkingNow = toBeChecked.remove(0);
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        if (checkingNow.getX() + i < WIDTH && checkingNow.getX() + i >= 0 && checkingNow.getY() + j < HEIGHT && checkingNow.getY() + j >= 0) {
+                            System.out.println(cells[checkingNow.getX() + i][checkingNow.getY() + j].cellState);
+                            if(cells[checkingNow.getX() + i][checkingNow.getY() + j].cellState == 0 && !cells[checkingNow.getX() + i][checkingNow.getY() + j].uncoverd){
+                                toBeChecked.add(new BoardPosition(checkingNow.getX() + i, checkingNow.getY() + j));
+                            }
+                            cells[checkingNow.getX() + i][checkingNow.getY() + j].uncover();
+                        }
+                    }
+                }
+
+            }
+        }
+
+
     }
 }

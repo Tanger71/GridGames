@@ -20,7 +20,7 @@ public abstract class Cell {
 
     public boolean uncoverd = false;
     public boolean isFlagged;
-    protected int cellState;
+    public int cellState = -1;
 
     protected Polygon tri_flag = new Polygon();
 
