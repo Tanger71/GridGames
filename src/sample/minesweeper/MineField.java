@@ -99,22 +99,26 @@ public class MineField implements Grid_Intf {
         return this.pn_rt;
     }
 
+    //checkForWin() method: returns the difference in mines marked to minesTotal
     @Override
     public char checkForWin() {
         return (char) (MINES - minesMarked + 48);
     }
 
+    //onGameEnd() method: outputs win statement to consol
     @Override
     public void onGameEnd(char winner) {
         btn_restart.setStyle("fx-background-color: #89e5ff");
         System.out.print("Therer are " + winner + " mines left!");
     }
 
+    //onGameEnd() method: outputs lose statement to consol
     private void onGameEnd() { // Overloaded method
         btn_restart.setStyle("fx-background-color: #ff7c7c");
         System.out.print("You lose...");
     }
 
+    //setMouseEvents() method: set mouseEvents
     private void setMouseEvents(Cell c) {
         c.pn_layout.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
@@ -177,7 +181,7 @@ public class MineField implements Grid_Intf {
                         } else {
                             onclickOpen((OpenCell) c); //Downcast
                         }
-                        if (checkForWin() == 0) {
+                        if (checkForWin() == '0') {
                             onGameEnd(checkForWin());
                         }
                         System.out.println("clicked on " + c.posX + " " + c.posY);
@@ -188,6 +192,7 @@ public class MineField implements Grid_Intf {
         });
     }
 
+    //onClickMine() method: UI for when mine is clicked
     private void onclickMine(MineCell c) {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
@@ -199,15 +204,16 @@ public class MineField implements Grid_Intf {
         }
         c.cir_bomb.setStroke(Color.DARKRED);
         c.cir_bomb.setStrokeWidth(1);
-        c.pn_layout.getChildren().add(c.cir_bomb);
         onGameEnd();
     }
 
+    //onClickOpen() method: UI for when open cell is clicked
     private void onclickOpen(OpenCell c) {
         System.out.println("Open!");
         c.uncover();
     }
 
+    //calcMinesNear() method: finds number of mines around clicked cell
     private int calcMinesNear(Cell c) {
         int x = c.posX;
         int y = c.posY;

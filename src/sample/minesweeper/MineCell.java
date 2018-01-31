@@ -32,6 +32,7 @@ public class MineCell extends Cell {
     public void uncover() {
         if (!uncoverd) {
             pn_layout.getChildren().addAll(lbl_state);
+            pn_layout.getChildren().add(cir_bomb);
             this.uncoverd = true;
         }
     }
