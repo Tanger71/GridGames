@@ -120,7 +120,8 @@ public class MineField implements Grid_Intf {
      */
     @Override
     public char checkForWin() {
-        return (char) (MINES - minesMarked + 48);
+        System.out.println("WinCheck: " + (MINES - minesMarked));
+        return (char) (MINES - minesMarked + 47);
     }
 
     /**
@@ -169,14 +170,17 @@ public class MineField implements Grid_Intf {
         c.pn_layout.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (!c.uncoverd) {
-                    c.rec_btn.setFill(Color.GRAY);
+                if (!c.isFlagged){
+                    if (!c.uncoverd) {
+                        c.rec_btn.setFill(Color.GRAY);
+                    }
                 }
             }
         });
         c.pn_layout.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+
                 if (event.getButton() == MouseButton.SECONDARY) {
                     if (c.isFlagged) {
                         c.unflag();
@@ -187,34 +191,35 @@ public class MineField implements Grid_Intf {
                     }
                     c.rec_btn.setFill(Color.DARKGRAY);
                 } else {
-                    if (!c.uncoverd) {
-                        c.rec_btn.setStrokeWidth(1);
-                        c.rec_btn.setWidth(36);
-                        c.rec_btn.setHeight(36);
-                        if (isFirstClick) {
-                            isFirstClick = false;
-                            plantBombs(c.posX, c.posY);
-                            System.out.println("calcminesnear");
-                            for (int i = 0; i < WIDTH; i++) {
-                                for (int j = 0; j < HEIGHT; j++) {
-                                    if (!(cells[i][j] instanceof MineCell)) {
-                                        ((OpenCell) cells[i][j]).setState(Integer.toString(calcMinesNear(cells[i][j])));
+                    if (!c.isFlagged){
+                        if (!c.uncoverd) {
+                            c.rec_btn.setStrokeWidth(1);
+                            c.rec_btn.setWidth(36);
+                            c.rec_btn.setHeight(36);
+                            if (isFirstClick) {
+                                isFirstClick = false;
+                                plantBombs(c.posX, c.posY);
+                                System.out.println("calcminesnear");
+                                for (int i = 0; i < WIDTH; i++) {
+                                    for (int j = 0; j < HEIGHT; j++) {
+                                        if (!(cells[i][j] instanceof MineCell)) {
+                                            ((OpenCell) cells[i][j]).setState(Integer.toString(calcMinesNear(cells[i][j])));
+                                        }
                                     }
                                 }
                             }
+                            if (c instanceof MineCell) {
+                                onclickMine((MineCell) c); //Downcast
+                            } else {
+                                onclickOpen((OpenCell) c); //Downcast
+                            }
+                            if (checkForWin() == '0') {
+                                onGameEnd(checkForWin());
+                            }
+                            System.out.println("clicked on " + c.posX + " " + c.posY);
                         }
-                        if (c instanceof MineCell) {
-                            onclickMine((MineCell) c); //Downcast
-                        } else {
-                            onclickOpen((OpenCell) c); //Downcast
-                        }
-                        if (checkForWin() == '0') {
-                            onGameEnd(checkForWin());
-                        }
-                        System.out.println("clicked on " + c.posX + " " + c.posY);
                     }
                 }
-
             }
         });
     }
@@ -244,7 +249,6 @@ public class MineField implements Grid_Intf {
      * @param c cell to pull GUI elements from
      */
     private void onclickOpen(OpenCell c) {
-        System.out.println("Open!");
         c.uncover();
         autoUncover(c);
     }
@@ -287,7 +291,6 @@ public class MineField implements Grid_Intf {
                 for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         if (checkingNow.getX() + i < WIDTH && checkingNow.getX() + i >= 0 && checkingNow.getY() + j < HEIGHT && checkingNow.getY() + j >= 0) {
-                            System.out.println(cells[checkingNow.getX() + i][checkingNow.getY() + j].cellState);
                             if(cells[checkingNow.getX() + i][checkingNow.getY() + j].cellState == 0 && !cells[checkingNow.getX() + i][checkingNow.getY() + j].uncoverd){
                                 toBeChecked.add(new BoardPosition(checkingNow.getX() + i, checkingNow.getY() + j));
                             }
